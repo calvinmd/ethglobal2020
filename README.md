@@ -1,4 +1,8 @@
-# ethglobal2020
+# ETHOnline Hackathon 2020
+
+Official Project Link: https://hack.ethglobal.co/showcase/molecule-protocol-reckjQfzFXVAf0Umz
+Deck: https://docs.google.com/presentation/d/1kPctfT0A0zpvlJBKxYoHgF3rjXykmRIwRRK2lqo14W0/edit?usp=sharing
+
 
 # Molecule Protocol
 
