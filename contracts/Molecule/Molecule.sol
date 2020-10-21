@@ -13,8 +13,9 @@ contract Molecule is AccessAdmin {
     uint public buyerTotal = 0;
     uint public sellerTotal = 0;
 
-    address public erc721Token1; // KYC ERC721 contract address
-    // TODO: use struct to support multiple ERC721 tokens?
+    address public erc721Token1; // E.g. KYC ERC721 contract address
+    address public erc721Token2; // E.g. Documents approved token
+    // TODO: use array or struct to support multiple ERC721 tokens?
     // TODO: this can support ERC20, too, but delegate it to DEX/Marketplace for now
     mapping (address => bool) public isBuyerWhitelisted;
     mapping (address => bool) public isSellerWhitelisted;
@@ -23,8 +24,9 @@ contract Molecule is AccessAdmin {
     event AddressRemovedFromWhitelist(address indexed addr, address operator, bool isBuyer);
 
     // @dev Constructor: sets (multiple) ERC721 token contract address(es)
-    constructor(address _erc721Token1) public {
+    constructor(address _erc721Token1, address _erc721Token2) public {
         erc721Token1 = _erc721Token1;
+        erc721Token2 = _erc721Token2;
     }
 
     // Doesn't accept eth
@@ -126,9 +128,11 @@ contract Molecule is AccessAdmin {
      */
     function _verifyMoleculeStructure(address _addr, bool _isBuyer) private returns (bool) {
         ERC721 token1 = ERC721(erc721Token1);
+        ERC721 token2 = ERC721(erc721Token2);
         // Buyers and sellers can have different checks
         // in this KYC example, it happens to be the same check on both sides
-        uint256 balance = token1.balanceOf(_addr);
-        return balance != 0;
+        uint256 balance1 = token1.balanceOf(_addr);
+        uint256 balance2 = token2.balanceOf(_addr);
+        return balance1 != 0 && balance2 !=0;
     }
 }
